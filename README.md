@@ -10,4 +10,5 @@ Robotics Lab2 - IST 21/22
 * Trajectory and Mapping
 * Controller
 * Robot Physical Model
+* Simulation Environment
 * Full System integration
