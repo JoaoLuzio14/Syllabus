@@ -5,10 +5,10 @@ figure(1)
 plot(x,y,'linewidth',1); 
 axis tight; 
 
-hold on
+
 I = imread('Map.PNG'); 
-h = image(xlim,-ylim,I); 
-uistack(h,'top')
+h = image(xlim,ylim,I); 
+uistack(h,'bottom')
 
 % Define position of arm
 theta=0:10:360; %theta is spaced around a circle (0 to 360).
@@ -18,12 +18,14 @@ x=r*cosd(theta) + 0.075;
 y=r*sind(theta) + 1;
 % Size figure and draw arms
 figure('position', [800, 300, 600, 550]);
-x = [-1  , 1/3, 1/3, 1, 1/3, 1/3,-1  ];
-y = [-1/3,-1/3,-1/2, 0, 1/2, 1/3, 1/3];
+% Vehicle Model
+x = [-0.566, -0.566, 2.766, 2.766];
+y = [  0.64,  -0.64, -0.64, 0.64];
 g = hgtransform;
-myShape2 = patch('XData',x,'YData',y,'FaceColor','yellow','Parent',g);
+myShape2 = patch('XData',x,'YData',y,'FaceColor','white','Parent',g);
 set(myShape2,'Xdata',x,'Ydata',y);
 axis([-10 10 -10 10]); grid on;
+
 T=0.05; %Delay between images
 for theta = pi/2:-pi/90:0
     if theta >= pi/4
