@@ -1,7 +1,7 @@
 x = -175:175; 
 y = 150*sind(x); 
 h = figure(1);
-h.Position = [100 100 1050 900];
+h.Position = [100 100 1080 720];
 plot(x,y,'linewidth',1); 
 axis tight; 
 
@@ -17,7 +17,7 @@ r=0.03; %The radius of our circle.
 x=r*cosd(theta) + 0.075;
 y=r*sind(theta) + 1;
 % Vehicle Model
-x = [-0.283, -0.288, 1.383, 1.383];
+x = [-0.283, -0.288, 2.766, 2.766];
 y = [  0.32,  -0.32, -0.32, 0.32];
 g = hgtransform;
 myShape2 = patch('XData',x,'YData',y,'FaceColor','red','Parent',g);
