@@ -1,5 +1,5 @@
 x = -175:175; 
-y = 150*sind(x); 
+y = -150*sind(x); 
 h = figure(1);
 h.Position = [100 100 1050 900];
 plot(x,y,'linewidth',1); 
