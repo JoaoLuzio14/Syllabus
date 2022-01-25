@@ -1,4 +1,4 @@
-%scenario = drivingScenario;
+g%scenario = drivingScenario;
 %roadNetwork(scenario,'OpenStreetMap','tecnico.osm');
 %plot(scenario)
 clear; clc; close all;
