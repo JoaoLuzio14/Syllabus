@@ -1,8 +1,4 @@
-clc
-clear all;
-close all;
-
-out=sim('controller',100);
+% out=sim('controller',300);
 
 x0=500;
 y0=20;
