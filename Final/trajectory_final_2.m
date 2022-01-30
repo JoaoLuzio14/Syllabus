@@ -1,5 +1,8 @@
 clear; clc; close all; 
 
+% Specify Energy Budget and compute minimal energy path
+B = 5*10^(-7); % Energy Budget
+
 %plot the map
 img = imread('mapa_4.png');
 h = gca;
@@ -94,7 +97,7 @@ for j=1:(length_x-1)
             t = [t(1:end),L2_inicial]
             dist=0.5*sqrt((xx(1)-x(L2_inicial))^2+(yy(1)-y(L2_inicial))^2);
             node_names = [node_names(1:end),string(max(s))]
-            weight = [weight(1:end),dist]
+            weight = [weight(1:end),dist];
             count=count+1
         end
     end
