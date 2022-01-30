@@ -222,7 +222,7 @@ end
 
 %%
 
-out=sim('controller_go',200);
+out=sim('controller',200);
 
 figure()
 img = imread('mapa_4.png');
@@ -249,7 +249,6 @@ axis tight;
 
 [p_final,~] = size(out.state);
 for k=1:2:(p_final-1)
-    disp(k);
     pt1 = [out.state(k,1) out.state(k,2) 0];
     r1 = round(out.state(k,3), 3);
     g.Matrix = makehgtform('translate',pt1,'zrotate',r1);
