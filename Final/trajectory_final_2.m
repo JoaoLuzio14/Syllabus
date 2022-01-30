@@ -288,7 +288,7 @@ end
 
 %%
 disp('Determinando o caminho mais próximo...') 
-out=sim('controller_go',200);
+out=sim('controller',300);
 
 figure()
 img = imread('mapa_4.png');
