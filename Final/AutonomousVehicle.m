@@ -348,7 +348,8 @@ t2 = atan(0.64/2.766);
 r1 = sqrt((0.5676)^2 + (0.64)^2);
 r2 = sqrt((2.766)^2 + (0.64)^2);
 
-for k=3000:800:(p_final-1000)
+k = 3000;
+while k<=(p_final-1000)
 
     pt = [out.state(k,1) out.state(k,2) out.state(k,3)];
     check = DetectCol(pt(1) + r2*cos(t2 + pt(3)), pt(2) + r2*sin(t2 + pt(3)));
@@ -375,6 +376,7 @@ for k=3000:800:(p_final-1000)
         k = k + colstep;
         continue;
     end
+    k = k + 800;
 end
 
 
