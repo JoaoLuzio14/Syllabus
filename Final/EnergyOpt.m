@@ -1,7 +1,6 @@
-function [speed, E] = EnergyOpt(res, P0)
+function [speed, E] = EnergyOpt(res, P0, lambda)
 
     M = 810;
-    lambda = 5;
     [K,~] = size(res);
     E_ = 0;
 
