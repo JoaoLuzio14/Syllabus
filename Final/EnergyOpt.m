@@ -31,7 +31,6 @@ function [speed, E] = EnergyOpt(res, P0)
             dist(:) >= 1.389*t(:); % Minimum Speed
             dist(:) <= 5.556*t(:); % Maximum Speed
 
-
     cvx_end;
 
     speed = zeros(K-1,1);

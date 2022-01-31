@@ -13,7 +13,7 @@
 
 B = 5*10^7; % Energy Budget
 P0 = 200; % Idle Energy
-MinimalEnergy = false; % true if CVX software installed
+MinimalEnergy = false; % true only if CVX software installed
 
 %% Code Bengins 
 
@@ -46,15 +46,15 @@ while button==1
 end
 
 %source nodes, target nodes, their names and weights(distance between them)
-s = [1 2 3 4 4 5 6 6 7 8 9 9 10 10 11 12 13 14 15 16 17 18 19 20 21 22 22 23 24 25 26 27 28 29 30 30 17 31 31 15 32 33 32 34 3 34 35 36 37];
-t = [4 1 2 5 18 6 7 9 8 3 10 6 11 9 12 13 14 36 31 19 16 17 20 21 22 23 37 29 25 26 27 28 29 30 11 10 31 16 15 32 15 32 33 2 34 35 34 9 24];
+s = [1 2 3 4 4 5 6 6 7 8 9 9 10 10 11 12 13 14 15 16 17 18 19 20 21 22 22 23 24 25 26 27 28 29 30 30 17 31 31 15 32 33 32 34 3 34 35 36];
+t = [4 1 2 5 18 6 7 9 8 3 10 6 11 9 12 13 14 36 31 19 16 17 20 21 22 23 24 29 25 26 27 28 29 30 11 10 31 16 15 32 15 32 33 2 34 35 34 9];
 node_names = {'1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16','17', '18', ... 
-    '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37'};
-weight = [66 7 7 7 7 7 7 100 7 66 7 100 7 7 66 7 7 66 50 59 7 63 7 7 32 7 7 7 5 5 7 42 7 50 7 10 7 7 50 7 7 7 7 7 7 30 30 7 40];
+    '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36'};
+weight = [66 7 7 7 7 7 7 100 7 66 7 100 7 7 66 7 7 66 50 59 7 63 7 7 32 7 49 7 5 5 7 42 7 50 7 10 7 7 50 7 7 7 7 7 7 30 30 7];
 
 %nodes coordinates
-x = [251 261 272 262 266 278 287 287 306 294 282 296 308 319 90 100 110 253 112 108 104 108 118 114 124 137 145 138 147 271 98 73 48 282 346 309 109];
-y = [48 38 47 206 222 242 220 205 488 497 509 668 677 668 64 241 229 217 398 412 426 499 508 615 627 627 614 517 507 499 219 44 40 36 28 509 521];
+x = [251 261 272 262 266 278 287 287 306 294 282 296 308 319 90 100 110 253 112 108 104 108 118 114 124 137 145 138 147 271 98 73 48 282 346 309];
+y = [48 38 47 206 222 242 220 205 488 497 509 668 677 668 64 241 229 217 398 412 426 499 508 615 627 627 614 517 507 499 219 44 40 36 28 509];
 
 
 
@@ -333,40 +333,6 @@ else
    fprintf("Success! Initiating motion...\n");
 end
 
-% Collision Count
-counter = 0;
-[p_final,~] = size(out.state);
-t1 = atan(-0.64/0.566) + pi;
-t2 = atan(0.64/2.766);
-r1 = sqrt((0.5676)^2 + (0.64)^2);
-r2 = sqrt((2.766)^2 + (0.64)^2);
-for k=1:1000:(p_final-1)
-    pt = [out.state(k,1) out.state(k,2) out.state(k,3)];
-    check = DetectCol(pt(1) + r2*cos(t2 + pt(3)), pt(2) + r2*sin(t2 + pt(3)));
-    if check == 1
-        counter = counter+1;
-        continue;
-    end
-    check = DetectCol(pt(1) + r2*cos(-t2 + pt(3)), pt(2) + r2*sin(-t2 + pt(3)));
-    if check == 1
-        counter = counter+1;
-        continue;
-    end
-    check = DetectCol(pt(1) + r1*cos(t1 + pt(3)), pt(2) + r1*sin(t1 + pt(3)));
-    if check == 1
-        counter = counter+1;
-        continue;
-    end
-    check = DetectCol(pt(1) + r1*cos(-t1 + pt(3)), pt(2) + r1*sin(-t1 + pt(3)));
-    if check == 1
-        counter = counter+1;
-        continue;
-    end
-end
-
-
-% Plot Motion
-
 figure()
 img = imread('map.png');
 h = gca;
@@ -398,8 +364,6 @@ for k=1:2:(p_final-1)
     drawnow limitrate
 end
 
-% Relevant Data
-fprintf("Total Energy Spent: %8.3f J\n\n", round(out.energy,3));
-fprintf("Total Time Spent: %8.3f s\n\n", round(out.tout(end),3));
-fprintf("Number of Collisions: %d \n\n", counter);
+fprintf("Total Energy Spent: %8.3f J\n", round(out.energy,3));
+fprintf("Number of Collisions: ...\n");
 clear;
