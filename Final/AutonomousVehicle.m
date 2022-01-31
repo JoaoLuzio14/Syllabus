@@ -58,7 +58,7 @@ x = [251 261 272 262 266 279 287 287 306 294 283 296 308 319 90 100 110 253 112 
 y = [48 38 47 206 222 249 220 205 488 497 508 668 677 668 64 241 229 217 398 412 426 499 508 615 627 627 614 517 507 499 219 44 40 36 28 509 521 234 234];
 
 
-%%%%%
+%%%%
 length_x=length(x);
 index1=ones(size(x));
 index2=ones(size(x));
@@ -74,7 +74,7 @@ for j=1:(length_x-1)
     L_initial=find(index1==index1_sort(1)); %L is the closest node
     L_next_initial=find(index1==index1_sort(j+1)); %L2 is the next closest node
     
-    %Check if the is a path from 's' to 't' or from 't' to 's'
+    %Check if there is a path from 's' to 't' or from 't' to 's'
     path_s_t=0;
     for i=1:length(s)
         if s(i)==L_initial
@@ -177,7 +177,7 @@ for j=1:(length_x-1)
     L2_final=find(index2==index2_sort(j+1)); %L2 is the next closest node
     smax=max(s);
     
-    %Check if the is a path from 's' to 't' or from 't' to 's'
+    %Check if there is a path from 's' to 't' or from 't' to 's'
     path_s_t=0;
     for i=1:length(s)
         if s(i)==L_final
