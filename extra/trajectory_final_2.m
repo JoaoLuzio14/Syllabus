@@ -1,10 +1,27 @@
 clear; clc; close all; 
+%% Autonomous Vehicle
 
-% Specify Energy Budget and compute minimal energy path
-B = 5*10^(-7); % Energy Budget
+
+
+%% Specify This parameters
+
+B = 5*10^7; % Energy Budget
+P0 = 200; % Idle Energy
+MinimalEnergy = false; % True or False
+
+%% Code Bengins 
+
+load_system('controller');
+if MinimalEnergy == false
+    set_param('controller/Controller/ME', 'sw', '0');
+    set_param('controller/Controller/DynamicVelocity/ME', 'sw', '1');
+else
+    set_param('controller/Controller/ME', 'sw', '1');
+    set_param('controller/Controller/DynamicVelocity/ME', 'sw', '0');
+end
 
 %plot the map
-img = imread('mapa_4.png');
+img = imread('map.png');
 h = gca;
 h.Visible = 'On';
 imshow(img);
@@ -291,10 +308,27 @@ end
 
 %%
 disp('Determinando o caminho mais próximo...') 
+
+% Compute minimal energy velocities
+if MinimalEnergy == true
+    [speed, E] = EnergyOpt(res, P0);
+else
+    [K,~] = size(res);
+    speed = zeros(K-1,1);
+end
+
+% Run Simulation
 out=sim('controller',300);
 
+if out.energy > B
+   fprintf("Energy budget is too low to ride along the chosen path...\n");
+   return
+else
+   fprintf("Success! Initiating motion...\n");
+end
+
 figure()
-img = imread('mapa_4.png');
+img = imread('map.png');
 h = gca;
 h.Visible = 'On';
 imshow(img);
@@ -315,7 +349,6 @@ myShape2 = patch('XData',x,'YData',y,'FaceColor','red','Parent',g);
 set(myShape2,'Xdata',x,'Ydata',y);
 axis tight;
 
-
 [p_final,~] = size(out.state);
 for k=1:2:(p_final-1)
     disp(k);
@@ -325,4 +358,6 @@ for k=1:2:(p_final-1)
     drawnow limitrate
 end
 
-    
+fprintf("Total Energy Spent: %8.3f J\n", round(out.energy,3));
+fprintf("Number of Collisions: ...\n");
+% clear;
