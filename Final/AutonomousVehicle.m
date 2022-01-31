@@ -34,7 +34,7 @@ h.Visible = 'On';
 imshow(img);
 hold on;
 
-disp('use the mouse to input via points for the reference trajectory');
+disp('Use the mouse to input via points for the reference trajectory:');
 disp('--button 3-- to end the input');
 button = 1;
 k = 1;
@@ -68,7 +68,7 @@ for i=1:length(x)
     index2(i) = sqrt((x(i)-xx(2))^2+(y(i)-yy(2))^2);
 end
 
-%%% Adding inicial point, xx(1), to graph
+%%% Adding inicial point to graph
 for j=1:(length_x-1)
     index1_sort=sort(index1);
     L_initial=find(index1==index1_sort(1)); %L is the closest node
@@ -169,7 +169,7 @@ end
 initial_node=max(s);
 
 
-%%% Final point, xx(2)
+%%% Adding final point to graph
 for j=1:(length_x-1)
     
     index2_sort=sort(index2);
@@ -294,11 +294,7 @@ end
 %%%
 
 D = digraph(s, t, weight, node_names);
-
-p = plot(D,'XData',x,'YData',y);
-shortPath = shortestpath(D, initial_node, final_node); %shortest path between nodes (n1 and n8 are chosen nodes)
-highlight(p, shortPath, 'EdgeColor', 'r', 'LineWidth', 3);
-
+shortPath = shortestpath(D, initial_node, final_node); %shortest path between nodes
 
 %calculating the coordinates of the path
 k=1;
@@ -314,10 +310,13 @@ end
 %% Compute the Path
 
 if (DetectCol(res(1,1),res(1,2)) == 1) || (DetectCol(res(end,1),res(end,2)) == 1)
-    disp('Invalid start and/or end goal point! Abort.');
+    disp('Invalid start and/or end goal point! Aborting...');
     return
 end
 
+%plot of the graph with the initial and final points
+p = plot(D,'XData',x,'YData',y);
+highlight(p, shortPath, 'EdgeColor', 'r', 'LineWidth', 3);
 
 disp('Finding the shortest path...');
 
@@ -346,7 +345,7 @@ t1 = atan(-0.64/0.566) + pi;
 t2 = atan(0.64/2.766);
 r1 = sqrt((0.5676)^2 + (0.64)^2);
 r2 = sqrt((2.766)^2 + (0.64)^2);
-for k=3000:1000:(p_final-1)
+for k=3000:1000:(p_final-1000)
     pt = [out.state(k,1) out.state(k,2) out.state(k,3)];
     check = DetectCol(pt(1) + r2*cos(t2 + pt(3)), pt(2) + r2*sin(t2 + pt(3)));
     if check == 1
