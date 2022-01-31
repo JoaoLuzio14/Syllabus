@@ -25,8 +25,8 @@ function [speed, E] = EnergyOpt(res, P0, lambda)
             minimize f;
 
             % Subjet to
-            sum(t) <= 300;
-            t(:) > 0;
+            sum(t) <= 300; % Takes less then 5 min
+            t(:) >= 0;
             dist(:) >= 1.389*t(:); % Minimum Speed
             dist(:) <= 5.556*t(:); % Maximum Speed
 

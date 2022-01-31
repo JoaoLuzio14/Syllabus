@@ -324,9 +324,11 @@ disp('Finding the shortest path...');
 % Compute minimal energy velocities
 if MinimalEnergy == true
     [speed, E] = EnergyOpt(res, P0, lambda);
+    colstep = 30000;
 else
     [K,~] = size(res);
     speed = zeros(K-1,1);
+    colstep = 5000;
 end
 
 % Run Simulation
@@ -346,26 +348,30 @@ t1 = atan(-0.64/0.566) + pi;
 t2 = atan(0.64/2.766);
 r1 = sqrt((0.5676)^2 + (0.64)^2);
 r2 = sqrt((2.766)^2 + (0.64)^2);
-for k=3000:1000:(p_final-1)
+for k=3000:800:(p_final-1000)
     pt = [out.state(k,1) out.state(k,2) out.state(k,3)];
     check = DetectCol(pt(1) + r2*cos(t2 + pt(3)), pt(2) + r2*sin(t2 + pt(3)));
     if check == 1
         counter = counter+1;
+        k = k + colstep;
         continue;
     end
     check = DetectCol(pt(1) + r2*cos(-t2 + pt(3)), pt(2) + r2*sin(-t2 + pt(3)));
     if check == 1
         counter = counter+1;
+        k = k + colstep;
         continue;
     end
     check = DetectCol(pt(1) + r1*cos(t1 + pt(3)), pt(2) + r1*sin(t1 + pt(3)));
     if check == 1
         counter = counter+1;
+        k = k + colstep;
         continue;
     end
     check = DetectCol(pt(1) + r1*cos(-t1 + pt(3)), pt(2) + r1*sin(-t1 + pt(3)));
     if check == 1
         counter = counter+1;
+        k = k + colstep;
         continue;
     end
 end
