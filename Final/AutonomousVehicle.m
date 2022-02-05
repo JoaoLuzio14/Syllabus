@@ -1,3 +1,4 @@
+
 %% Autonomous Vehicle
 
 % IST - Robotics - Lab 2
@@ -277,10 +278,19 @@ if path_s_t==0
 end
 final_node=max(t);
 
+if path_s_t==1
+aux_1=sqrt((x(L_final)-xx(1))^2+(y(L_final)-yy(1))^2);
+aux_2=sqrt((x(L_final)-xx(2))^2+(y(L_final)-yy(2))^2);
+end
+
+if path_t_s==1
+aux_1=sqrt((x(L_initial)-xx(1))^2+(y(L_initial)-yy(1))^2);
+aux_2=sqrt((x(L_initial)-xx(2))^2+(y(L_initial)-yy(2))^2);
+end
 
 if L_initial==L2_final
     if L_next_initial==L_final
-        if (path_s_t==1) && (path_t_s==1)
+        if ((path_s_t==1) && (path_t_s==1)) || (aux_1<aux_2)
             %If the final point and initial point are on the same road 
             %section and this road is two-way, the path must simply be from 
             %the initial point to the final point.
