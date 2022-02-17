@@ -152,21 +152,3 @@ function col = DetectCol(x, y)
     %plot(polyin12);
 
 end 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
